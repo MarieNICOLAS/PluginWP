@@ -16,41 +16,19 @@
 
     //activation plugin
     require_once(WPMN_DIR."includes/utils/wpmn_activ_plug.php");
-    register_activation_hook(__FILE__, 'wpmn_activation_plugin');
-    
-    //Vérifier que les valeurs ont été soumises
-    if(isset($_POST['nom']) && isset($_POST['mail'])){
-        //Récupérer valeurs soumises
-        $nom = sanitize_text_field($_POST['nom']);
-        $mail = sanitize_email($_POST['mail']);
+    register_activation_hook(__FILE__, 'wpmn_activ_plugin');
 
-        //Ajout valeurs au tableau
-        $data_table[] = array(
-            'nom' => $nom,
-            'mail'=> $mail
-        );
-    }
+    echo "Plugin activé";
 
+    // require_once(WPMN_DIR. "includes\utils\wpmn_new_page.php");
+    // wpmn_create_new_page();
+    // echo "Nouvelle page créée";
+    // exit;
     //Afficher le formulaire
-    wpmn_activ_plugin();
-
-    //Vérifier que les données ont été soumises
-    if(isset($data_table)){
-        echo "Données soumises <br>";
-        echo '<ul>';
-        foreach($data_table as $record){
-            echo '<li>Nom : ' . $record['nom'] . '<br>Mail : ' . $record['mail'] . '</li>'; 
-        }
-        echo '</ul>';
-    } else {
-        echo "Aucune donnée soumise.";
-    }
-    
-    
-    exit;
-    
-
+    require_once(WPMN_DIR."includes/utils/wpmn_form.php");
+    wpmn_formulaire();
 
     
-
+    
+    
 ?> 
