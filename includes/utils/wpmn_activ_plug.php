@@ -13,18 +13,17 @@
 
         }
 
-        
-
-
         //Création de la base de données
         require_once(WPMN_DIR. "includes/utils/wpmn_create_db_form.php");
         wpmn_create_db_form();
         echo "database créée";
 
+        //Ajouter une option par défaut pour la notification par mail
+        add_option('wpmn_notif_mail', false);
 
         //Afficher le formulaire
-        require_once(WPMN_DIR."includes/utils/wpmn_form.php");
-        wpmn_formulaire();
+        // require_once(WPMN_DIR."includes/utils/wpmn_form.php");
+        // wpmn_formulaire();
 
         
     }

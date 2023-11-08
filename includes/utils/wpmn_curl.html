@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envoie mail</title>
+</head>
+<body>
+    <h1>Appel cURL</h1>
+    <p> Affichage des données</p>
+    <div id="resultat"></div> <!-- Afficher le résultat de la requete-->
+
+    <script> //Incorporer du JS
+        //Requete AJAX pour récupérer le résultat de la requte cURL
+        fetch('http://wordpress_6_3_1.acme.com/wpmn_requete_curl.php')
+            .then(response => response.text())
+            .then(data => {
+                //Afficher le résultat dans la page HTML
+                document.getElementById('resultat').innerHTML = data;
+            })
+            .catch(error =>{
+                console.error('Erreur lors de la equete:', error);
+            })
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+wp-content/
+    plugins/
+        pluginform/
+            pluginform.php
+            assets/
+                css/
+                js/
+            includes
+                control/
+                model/
+                utils/
+                    wpmn_activ_plug.php
+                    wpmn_desactiv_plug.php
+                    wmpn_form.php
+                    wpmn_create_db_form.php
+                    wpmn_new_page.php
+
+
+
+<?php
+    $data_table = array();
+    function wpmn_activ_plugin(){
+        //Déclaration variables du formulaire à stocker
+        global $data_table; 
+
+        //Vérifier si le formulaire a été soumis
+        if(isset($_POST['nom']) && isset($_POST['mail'])){
+            //Récupérer valeurs soumises
+            $nom = sanitize_text_field($_POST['nom']);
+            $mail = sanitize_email($_POST['mail']);
+
+            //Ajout valeurs au tableau
+            $data_table[] = array(
+                'nom' => $nom,
+                'mail'=> $mail
+            );
+        }
+
+        //Affichage du formulaire de contact
+        $formulaire = '
+        <form method="post" action="">
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom"><br>
+
+            <label for="mail">Mail :</label>
+            <input type="email" name="mail"><br>
+
+            <input type="submit" value="Valider">
+        </form>
+        ';
+
+        //Afficher le formulaire
+        echo $formulaire;
+
+        //Afficher les données soumises
+        if(!empty($data_table)){
+            echo "Données soumises <br>";
+            echo '<ul>';
+            foreach($data_table as $record){
+                echo '<li>Nom : ' . $record['nom'] . '<br>Mail :' . $record['mail'] . '</li>'; 
+            }
+            echo '</ul>';
+
+        }
+        
+    }
+?>
+
+
+
+
+        // //Vérifier que les valeurs ont été soumises
+        // if(isset($_POST['nom']) && isset($_POST['mail'])){
+        //     //Récupérer valeurs soumises
+        //     $nom = sanitize_text_field($_POST['nom']);
+        //     $mail = sanitize_email($_POST['mail']);
+
+        //     //Ajout valeurs au tableau
+        //     $data_table[] = array(
+        //         'nom' => $nom,
+        //         'mail'=> $mail
+        // );

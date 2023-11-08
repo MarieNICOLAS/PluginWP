@@ -20,27 +20,41 @@
         //Afficher le formulaire
         echo "$formulaire";
 
-
-        //Méthode POST : vérifier la soumission du formulaire
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nom = sanitize_text_field($_POST['nom']);
             $mail = sanitize_email($_POST['mail']);
+    
+            if (empty($nom) || empty($mail)) {
+                echo "Veuillez remplir tous les champs du formulaire.";
+            } else {
+                // Enregistrement des données du formulaire dans la base de données
+                $table_name = $wpdb->prefix . 'user_contact';
+    
+                $wpdb->insert(
+                    $table_name,
+                    array(
+                        'nom' => $nom,
+                        'mail' => $mail
+                    )
+                );
+    
+                // Effectuez un appel cURL vers un autre environnement avec les données
+                $url = 'http://wordpress_6_3_1.acme.com/wpmn_requete_curl.php'; // Remplacez par l'URL de l'autre environnement
+                $data = array(
+                    'nom' => $nom,
+                    'mail' => $mail
+                );
+    
+                header("Localisation: wpmn_curl.html");
+                
 
-            //Enregistrement des données du formulaire dans la DB 
-            $table_name = $wpdb->prefix . 'user_contact';
+                //Vérifier si l'envoi de mail est activé
+                if(get_option('wpmn_notif_mail')){
 
-            $wpdb->insert(
-                $table_name,
-
-                //Tableau des valeurs à insérer
-                array(
-                    'nom'=>$nom,
-                    'mail'=>$mail
-                )
-            );
-            echo "Vos informations ont été enregistrées!";
-
+                }
+            }
         }
+
     }
     
 
